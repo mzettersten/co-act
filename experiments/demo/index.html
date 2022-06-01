@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="js/snap.svg-min.js"></script>
+  <script src="jspsych-6.3.1/jspsych.js"></script>
+  <script src="coact-grid.js"></script>
+  <script src="coact-grid-choice.js"></script>
+  <script src="coact-grid-choice-audio.js"></script>
+  <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+  <link rel="stylesheet" href="jspsych-6.3.1/css/jspsych.css">
+</head>
+<body></body>
+<script> 
+  var images = [
+  "stims/toucan.png", 
+  "stims/tiger.png",
+  "stims/sheep.png",
+  "stims/rabbit.png",
+  "stims/penguin.png",
+  "stims/nyala.png",
+  "stims/narwhal.png",
+  "stims/lynx.png"];
+
+  var preload = {
+    type: 'preload',
+    auto_preload: true
+  }
+
+  // create trial
+  var trial = {
+    type: 'coact-grid',
+    images: images,
+    first_choice_location: "left"
+  };
+
+  var trial_2 = {
+    type: 'coact-grid-choice',
+    images: images,
+    central_images: function() {
+      console.log(jsPsych.data.get().last(1).values()[0].chosen_images);
+        return jsPsych.data.get().last(1).values()[0].chosen_images
+      }
+  };
+
+  var trial_3 = {
+    type: 'coact-grid-choice-audio',
+    images: images,
+    central_images: function() {
+      console.log(jsPsych.data.get().last(1).values()[0]);
+        return jsPsych.data.get().last(1).values()[0].central_images
+      },
+    chosen_image: "stims/narwhal.png",
+    chosen_audio: "stims/narwhal.wav"
+  };
+
+  jsPsych.init({
+    timeline: [preload, trial, trial_2,trial_3],
+    on_finish: function() {
+      jsPsych.data.displayData();
+    }
+  });
+</script>
+
+</html>
