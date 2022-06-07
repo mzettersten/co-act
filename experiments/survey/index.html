@@ -31,7 +31,7 @@ function createTrials(data) {
 
   for (i=0; i<data.length; i++) {
     questions.push({
-        prompt: data["questions"][i],
+        prompt: data[i]["questions"],
         labels: scale,
         required: true, 
     });
