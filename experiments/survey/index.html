@@ -25,17 +25,14 @@ Papa.parse(publicSpreadsheetUrl, {
 var timeline = [];
 
 function createTrials(data) {
-  var question_data = data[0];
-  items = question_data["question"];
   console.log(items)
 
   var questions = [];
-  var scale = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
+  var scale = ["Completely unknown", "not well known", "Somewhat unknown", "somewhat known", "well known", "very well known"];
 
-  for (i=0; i<items.length; i++) {
+  for (i=0; i<data.length; i++) {
     questions.push({
-        prompt: items[i],
-        name: 'Vegetables',
+        prompt: data["questions"][i],
         labels: scale,
         required: true, 
     });
@@ -45,7 +42,7 @@ function createTrials(data) {
   
   var likert_trial = {
       type: 'survey-likert',
-      preamble: "Please indicate how well your child knows each word",
+      preamble: "Please indicate how well your child knows each animal word.<br><br>To what extent are each of the following animal words known (or unknown) to your child?",
       questions: questions
   };
 
