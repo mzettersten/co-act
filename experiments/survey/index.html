@@ -22,6 +22,9 @@ Papa.parse(publicSpreadsheetUrl, {
   }
 })
 
+var timeline = [];
+
+function createTrials(data) {
   var scale = ["Strongly Disagree", "Disagree", "Neutral", "Agree", "Strongly Agree"];
 
   var likert_trial = {
@@ -45,10 +48,19 @@ Papa.parse(publicSpreadsheetUrl, {
       scale_width: 500
   };
 
+  timeline = [likert_trial, likert_trial_random_order];
+
+}
+
+  
+function startExperiment(data) {
+  createTrials(data);
+
   jsPsych.init({
-    timeline: [likert_trial, likert_trial_random_order],
+    timeline: timeline,
     on_finish: function() { jsPsych.data.displayData(); }
   });
+};
 
 
   </script>
