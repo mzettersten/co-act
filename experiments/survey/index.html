@@ -12,7 +12,8 @@
 
     var publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSSJgGnhBFpWYOlvwvqy_sMqnqg0MIUSYDSjYt08qk66CTKJ6x0ygX_24bmZJnabxlhJYDI_Cig-5Z7/pub?output=csv"
 
-Papa.parse(publicSpreadsheetUrl, {
+	var csv_url = "coact-parent-survey-questions.csv"
+Papa.parse(csv_url, {
   download: true,
   header: true,
   complete: function(results) {
@@ -27,7 +28,7 @@ var timeline = [];
 function createTrials(data) {
 
   var questions = [];
-  var scale = ["Completely unknown", "not well known", "Somewhat unknown", "somewhat known", "well known", "very well known"];
+  var scale = ["definitely no", "probably no", "slightly no", "slightly yes", "probably yes", "definitely yes"];
 
   for (i=0; i<data.length; i++) {
     questions.push({
@@ -41,7 +42,7 @@ function createTrials(data) {
   
   var likert_trial = {
       type: 'survey-likert',
-      preamble: "Please indicate how well your child knows each animal word.<br><br>To what extent are each of the following animal words known (or unknown) to your child?",
+      preamble: "For each word, please indicate: Does your child know this word?",
       questions: questions
   };
 
