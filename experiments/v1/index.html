@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="js/snap.svg-min.js"></script>
+  <script src="js/papaparse.min.js"></script>
+  <script src="jspsych-6.3.1/jspsych.js"></script>
+  <script src="coact-grid.js"></script>
+  <script src="coact-grid-choice.js"></script>
+  <script src="coact-grid-choice-audio.js"></script>
+  <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+  <script src="jspsych-6.3.1/plugins/jspsych-html-button-response.js"></script>
+  <link rel="stylesheet" href="jspsych-6.3.1/css/jspsych.css">
+</head>
+<body></body>
+<script> 
+	//general function for grabbing parameter from a URL
+	function getParamFromURL( name ) {
+		name = name.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");
+		var regexS = "[\?&]"+name+"=([^&#]*)";
+		var regex = new RegExp( regexS );
+		var results = regex.exec( window.location.href );
+		if( results == null )
+			return "";
+		else
+			return results[1];
+	}
+	
+	var experiment_type = getParamFromURL("experiment_type");
+	var csv_url = "";
+	
+  var images = [
+  "stims/toucan.png", 
+  "stims/tiger.png",
+  "stims/sheep.png",
+  "stims/rabbit.png",
+  "stims/penguin.png",
+  "stims/nyala.png",
+  "stims/narwhal.png",
+  "stims/lynx.png"];
+  
+  /* CONTROL SELECTION OF EXPERIMENT */
+  
+  var experiment_choices = ["experiment","survey"]
+  
+  var select_experiment = {
+	  type: 'html-button-response',
+	  stimulus: "<b>Experimenter Only: Select the experiment to intiate.</b>",
+	  choices: experiment_choices,
+	  on_finish: function() {
+		  var resp_index = jsPsych.data.get().last(1).values()[0].response;
+		  var experiment_type = experiment_choices[resp_index];
+		  console.log(experiment_type);
+	  }
+  }
+  
+  var start_survey = {
+	  type: 'html-button-response',
+	  stimulus: "<b>Welcome to this survey! Click start to begin.</b>",
+	  choices: ["start"]
+  }
+  
+  var start_experiment = {
+	  type: 'html-button-response',
+	  stimulus: "<b>Welcome to the experiment! Click start to begin.</b>",
+	  choices: ["start"]
+  }
+  
+  var init_timeline = [];
+  var experiment_timeline = [];
+  var survey_timeline = [];
+  
+  
+  
+  if (experiment_type=="") {
+	  init_timeline = [select_experiment];
+  } else if (experiment_type=="survey") {
+	  console.log("works")
+	  init_timeline =[start_survey];
+  } else if (experiment_type=="experiment") {
+	  init_timeline =[start_experiment];
+  } else {
+	  init_timeline =[select_experiment];
+  }
+  
+  /* BEGIN SURVEY TIMELINE */
+  
+  //var publicSpreadsheetUrl = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSSJgGnhBFpWYOlvwvqy_sMqnqg0MIUSYDSjYt08qk66CTKJ6x0ygX_24bmZJnabxlhJYDI_Cig-5Z7/pub?output=csv"
+  
+
+function createTrials(data) {
+
+  var questions = [];
+  var scale = ["definitely not", "probably not", "maybe not", "maybe yes", "probably yes", "definitely yes"];
+
+  for (i=0; i<data.length; i++) {
+    questions.push({
+        prompt: data[i]["questions"],
+        labels: scale,
+        required: true, 
+    });
+  };
+
+
+  
+  var likert_trial = {
+      type: 'survey-likert',
+      preamble: "For each word, please indicate: Does your child know this word? Please use the full scale.",
+      questions: questions
+  };
+
+  survey_timeline = [likert_trial];
+
+}
+  
+  /* BEGIN EXPERIMENT TIMELINE */
+
+  var preload = {
+    type: 'preload',
+    auto_preload: true
+  }
+
+  // create trial
+  var trial = {
+    type: 'coact-grid',
+    images: images,
+    first_choice_location: "left"
+  };
+
+  var trial_2 = {
+    type: 'coact-grid-choice',
+    images: images,
+    central_images: function() {
+      console.log(jsPsych.data.get().last(1).values()[0].chosen_images);
+        return jsPsych.data.get().last(1).values()[0].chosen_images
+      }
+  };
+
+  var trial_3 = {
+    type: 'coact-grid-choice-audio',
+    images: images,
+    central_images: function() {
+      console.log(jsPsych.data.get().last(1).values()[0]);
+        return jsPsych.data.get().last(1).values()[0].central_images
+      },
+    chosen_image: "stims/narwhal.png",
+    chosen_audio: "stims/narwhal.wav"
+  };
+  
+  var experiment_timeline = [preload, trial, trial_2,trial_3];
+  
+  function startExperiment(data, experiment_type) {
+	  var current_timeline
+	  if (experiment_type == "survey") {
+		  createTrials(data);
+		  current_timeline = survey_timeline;
+	  } else if (experiment_type == "experiment") {
+	  	  current_timeline = experiment_timeline;
+	  }
+    jsPsych.init({
+      timeline: current_timeline,
+      on_finish: function() { jsPsych.data.displayData(); }
+    });
+  };
+  
+  
+  
+
+  jsPsych.init({
+    timeline: init_timeline,
+    on_finish: function() {
+		// pull csv_url and experiment_type from data
+		console.log(experiment_type)
+		if (experiment_type == "survey") {
+			var csv_url = "coact-parent-survey-questions.csv"
+		} else if (experiment_type == "experiment") {
+			var csv_url = "test_data.csv"
+		}
+		
+		console.log(csv_url)
+		
+		Papa.parse(csv_url, {
+			  download: true,
+			  header: true,
+			  complete: function(results) {
+				  var data = results.data;
+				  console.log(data);
+				  startExperiment(data);
+			  }
+		  })
+	    }
+	});
+</script>
+
+</html>
