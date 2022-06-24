@@ -177,19 +177,18 @@ function createTrials(data) {
     timeline: init_timeline,
     on_finish: function() {
 		jsPsych.data.displayData();
-		console.log(jsPsych.data.get().last(1).values()[0])
-		console.log(jsPsych.data.get().last(1).values()[0].experiment_type)
+		//pull current experiment type from jsPsych data
 		var current_experiment_type = jsPsych.data.get().last(1).values()[0].experiment_type;
-		// pull csv_url and experiment_type from data
-		console.log(experiment_type)
+		
+		//define csv to use for study
 		if (current_experiment_type == "survey") {
 			var csv_url = "coact-parent-survey-questions.csv"
 		} else if (current_experiment_type == "experiment") {
 			var csv_url = "test_data.csv"
 		}
-		
 		console.log(csv_url)
 		
+		//load csv
 		Papa.parse(csv_url, {
 			  download: true,
 			  header: true,
