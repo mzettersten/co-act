@@ -47,23 +47,26 @@
 	  type: 'html-button-response',
 	  stimulus: "<b>Experimenter Only: Select the experiment to intiate.</b>",
 	  choices: experiment_choices,
-	  on_finish: function() {
+	  on_finish: function(data) {
 		  var resp_index = jsPsych.data.get().last(1).values()[0].response;
 		  var experiment_type = experiment_choices[resp_index];
 		  console.log(experiment_type);
+		  data.experiment_type = experiment_type;
 	  }
   }
   
   var start_survey = {
 	  type: 'html-button-response',
 	  stimulus: "<b>Welcome to this survey! Click start to begin.</b>",
-	  choices: ["start"]
+	  choices: ["start"],
+	  data: {experiment_type: "survey"}
   }
   
   var start_experiment = {
 	  type: 'html-button-response',
 	  stimulus: "<b>Welcome to the experiment! Click start to begin.</b>",
-	  choices: ["start"]
+	  choices: ["start"],
+	  data: {experiment_type: "experiment"}
   }
   
   var init_timeline = [];
@@ -82,6 +85,10 @@
   } else {
 	  init_timeline =[select_experiment];
   }
+  
+  jsPsych.data.addProperties({
+    experiment_type: experiment_type
+  });
   
   /* BEGIN SURVEY TIMELINE */
   
@@ -169,11 +176,15 @@ function createTrials(data) {
   jsPsych.init({
     timeline: init_timeline,
     on_finish: function() {
+		jsPsych.data.displayData();
+		console.log(jsPsych.data.get().last(1).values()[0])
+		console.log(jsPsych.data.get().last(1).values()[0].experiment_type)
+		var current_experiment_type = jsPsych.data.get().last(1).values()[0].experiment_type;
 		// pull csv_url and experiment_type from data
 		console.log(experiment_type)
-		if (experiment_type == "survey") {
+		if (current_experiment_type == "survey") {
 			var csv_url = "coact-parent-survey-questions.csv"
-		} else if (experiment_type == "experiment") {
+		} else if (current_experiment_type == "experiment") {
 			var csv_url = "test_data.csv"
 		}
 		
