@@ -157,7 +157,7 @@ function createTrials(data) {
   var experiment_timeline = [preload, trial, trial_2,trial_3];
   
   function startExperiment(data, experiment_type) {
-	  var current_timeline
+	  var current_timeline = [];
 	  if (experiment_type == "survey") {
 		  createTrials(data);
 		  current_timeline = survey_timeline;
@@ -195,7 +195,7 @@ function createTrials(data) {
 			  complete: function(results) {
 				  var data = results.data;
 				  console.log(data);
-				  startExperiment(data);
+				  startExperiment(data, current_experiment_type);
 			  }
 		  })
 	    }
