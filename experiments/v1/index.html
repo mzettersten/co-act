@@ -11,6 +11,7 @@
   <script src="jspsych-6.3.1/plugins/jspsych-survey-likert.js"></script>
   <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
   <script src="jspsych-6.3.1/plugins/jspsych-html-button-response.js"></script>
+  <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
   <link rel="stylesheet" href="jspsych-6.3.1/css/jspsych.css">
 </head>
 <body></body>
@@ -180,12 +181,21 @@ function createTrials(data) {
 		jsPsych.data.displayData();
 		//pull current experiment type from jsPsych data
 		var current_experiment_type = jsPsych.data.get().last(1).values()[0].experiment_type;
+
+    const testFolder = 'csv/';
+    const fs = require('fs');
+
+    fs.readdir(testFolder, (err, files) => {
+      files.forEach(file => {
+        console.log(file);
+      });
+    });
 		
 		//define csv to use for study
 		if (current_experiment_type == "survey") {
-			var csv_url = "coact-parent-survey-questions.csv"
+			var csv_url = "csv/coact-parent-survey-questions.csv"
 		} else if (current_experiment_type == "experiment") {
-			var csv_url = "data/test_data.csv"
+			var csv_url = "csv/test_data.csv"
 		}
 		console.log(csv_url)
 		
