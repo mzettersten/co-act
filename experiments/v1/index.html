@@ -185,6 +185,7 @@ function createTrials(data) {
 request.open('GET', 'csv/', true);
 
 request.onload = function() {
+	console.log(request.status)
   if (request.status >= 200 && request.status < 400) {
     // Success!
     var resp = request.responseText;
