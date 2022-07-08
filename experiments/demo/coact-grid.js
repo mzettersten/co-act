@@ -242,7 +242,7 @@ jsPsych.plugins['coact-grid'] = (function() {
       var rt = end_time - start_time;
       response.rt = rt;
       response.choices.push(imChoice);
-      response.chosen_images.push(images[imChoice]);
+      response.chosen_images.push(trial.images[imChoice]);
 
       if (number_choices > 1) {
         image1.unclick();

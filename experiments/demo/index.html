@@ -4,6 +4,8 @@
 <head>
   <script src="js/snap.svg-min.js"></script>
   <script src="jspsych-6.3.1/jspsych.js"></script>
+  <script src="coact-test-prompt.js"></script>
+  <script src="coact-test.js"></script>
   <script src="coact-grid.js"></script>
   <script src="coact-grid-choice.js"></script>
   <script src="coact-grid-choice-audio.js"></script>
@@ -25,6 +27,32 @@
   var preload = {
     type: 'preload',
     auto_preload: true
+  }
+  
+  var test_trial_prompt = {
+	  type: 'coact-test-prompt',
+	  images: images
+  }
+  
+  var test_trial = {
+	  type: 'coact-test',
+	  images: images,
+	  test_audio: "stims/narwhal.wav",
+	  trial_ends_after_audio: false
+  }
+  
+  var test_trial_1 = {
+	  type: 'coact-test',
+	  images: images,
+	  test_audio: "stims/toucan.wav",
+	  trial_ends_after_audio: false
+  }
+  
+  var test_trial_2 = {
+	  type: 'coact-test',
+	  images: images,
+	  test_audio: "stims/tiger.wav",
+	  trial_ends_after_audio: false
   }
 
   // create trial
@@ -55,7 +83,7 @@
   };
 
   jsPsych.init({
-    timeline: [preload, trial, trial_2,trial_3],
+    timeline: [preload, test_trial_prompt, test_trial, test_trial_prompt, test_trial_1, test_trial_prompt, test_trial_2, trial, trial_2,trial_3],
     on_finish: function() {
       jsPsych.data.displayData();
     }
