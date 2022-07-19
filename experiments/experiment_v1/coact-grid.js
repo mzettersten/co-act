@@ -76,6 +76,9 @@ jsPsych.plugins['coact-grid'] = (function() {
     };
 
     var number_choices = 0;
+    var chosen_images_in_order = [];
+    var chosen_audio_in_order = [];
+    var chosen_items_in_order = [];
 
 
 
@@ -332,9 +335,15 @@ jsPsych.plugins['coact-grid'] = (function() {
       if (trial.first_choice_location == "left") {
         var center_image_1 = s.image(choice_images[0], center_image_locations[0][0], center_image_locations[0][1], trial.image_size[0]+25,trial.image_size[1]+25);
         var center_image_2 = s.image(choice_images[1], center_image_locations[1][0], center_image_locations[1][1], trial.image_size[0]+25,trial.image_size[1]+25);
+        chosen_images_in_order = [choice_images[0],choice_images[1]];
+        chosen_audio_in_order = response.chosen_audio;
+        chosen_items_in_order = response.chosen_items;
       } else {
         var center_image_1 = s.image(choice_images[1], center_image_locations[0][0], center_image_locations[0][1], trial.image_size[0]+25,trial.image_size[1]+25);
         var center_image_2 = s.image(choice_images[0], center_image_locations[1][0], center_image_locations[1][1], trial.image_size[0]+25,trial.image_size[1]+25);
+        chosen_images_in_order = [choice_images[1],choice_images[0]];
+        chosen_audio_in_order = [response.chosen_audio[1],response.chosen_audio[0]];
+        chosen_items_in_order = [response.chosen_items[1],response.chosen_items[0]];
       }
 
       
@@ -359,7 +368,10 @@ jsPsych.plugins['coact-grid'] = (function() {
         chosen_images: response.chosen_images,
         chosen_items: response.chosen_items,
         chosen_audio_items: response.chosen_audio,
-        first_choice_location: trial.first_choice_location
+        first_choice_location: trial.first_choice_location,
+        chosen_images_in_order: chosen_images_in_order,
+        chosen_audio_in_order: chosen_audio_in_order,
+        chosen_items_in_order: chosen_items_in_order
       };
 
       jsPsych.finishTrial(trial_data);

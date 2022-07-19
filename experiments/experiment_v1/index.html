@@ -12,9 +12,17 @@
   <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
   <script src="jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
   <link rel="stylesheet" href="jspsych-6.3.1/css/jspsych.css">
+  <link rel="stylesheet" href="coact.css">
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
 </head>
 <body></body>
 <script> 
+
+$('body,html').addClass('stop-scrolling');
+
   var timeline = [];
 
   //general function for grabbing parameter from a URL
@@ -29,20 +37,22 @@
       return results[1];
   }
 
-  var subject_id_prompt = {
+  var experiment_prompt = {
     type: 'survey-text',
-    questions: [{prompt: 'Please enter the participant ID:', name: "subject_id"}],
+    questions: [{prompt: 'Please enter the participant ID:', name: "subject_id"}, {prompt: 'Please enter the condition:', name: "condition"}],
     on_finish: function() {
       console.log(jsPsych.data.get().last(1).values()[0].response.subject_id)
+      console.log(jsPsych.data.get().last(1).values()[0].response.condition)
       jsPsych.data.addProperties({
-    subject_id: jsPsych.data.get().last(1).values()[0].response.subject_id
+    subject_id: jsPsych.data.get().last(1).values()[0].response.subject_id,
+    condition: jsPsych.data.get().last(1).values()[0].response.condition,
   });
     }
   }
   
   var subject_id = getParamFromURL("subject_id");
   if (subject_id=="") {
-    timeline.push(subject_id_prompt)
+    timeline.push(experiment_prompt)
   }
 
   //organize stimuli
@@ -227,7 +237,13 @@
           images: cur_sample_images,
           image_stimuli_names: cur_sample_names,
           image_audio_names: cur_sample_audio,
-          first_choice_location: cur_first_choice_location_array[j]
+          first_choice_location: cur_first_choice_location_array[j],
+          data: {
+            trial_type: "sampling",
+            condition: condition,
+            sample_num: j,
+            set: set
+          }
         };
 
         var trial_2 = {
@@ -238,10 +254,19 @@
           return jsPsych.data.get().last(1).values()[0].chosen_images
         },
         central_audio: function() {
-          console.log(jsPsych.data.get().last(1).values()[0].chosen_audio_items);
-          return jsPsych.data.get().last(1).values()[0].chosen_audio_items
+          console.log(jsPsych.data.get().last(1).values()[0].chosen_audio_in_order);
+          return jsPsych.data.get().last(1).values()[0].chosen_audio_in_order
         },
-          first_choice_location: cur_first_choice_location_array[j]
+          first_choice_location: cur_first_choice_location_array[j],
+          data: {
+            trial_type: "sampling",
+            condition: condition,
+            sample_num: j,
+            set: set,
+            chosen_images_in_order: function() { return jsPsych.data.get().last(1).values()[0].chosen_images_in_order},
+            chosen_audio_in_order: function() { return jsPsych.data.get().last(1).values()[0].chosen_audio_in_order},
+            chosen_items_in_order: function() { return jsPsych.data.get().last(1).values()[0].chosen_items_in_order},
+          }
       };
 
       var trial_3 = {
@@ -259,7 +284,18 @@
           console.log(jsPsych.data.get().last(1).values()[0].chosen_audio)
           return jsPsych.data.get().last(1).values()[0].chosen_audio
         },
-          first_choice_location: cur_first_choice_location_array[j]
+        chosen_index: function() {
+          console.log(jsPsych.data.get().last(1).values()[0].chosen_index)
+          return jsPsych.data.get().last(1).values()[0].chosen_index
+        },
+          first_choice_location: cur_first_choice_location_array[j],
+          trial_ends_after_audio: false,
+          data: {
+            trial_type: "sampling",
+            condition: condition,
+            sample_num: j,
+            set: set
+          }
       };
 
       sample_block.push(trial);

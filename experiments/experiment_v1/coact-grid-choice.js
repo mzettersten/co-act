@@ -249,9 +249,13 @@ jsPsych.plugins['coact-grid-choice'] = (function() {
 
       center_image_1.click(function() {
         center_image_2.animate({
-          opacity: "0.1"
-        },300);
-        inputEvent(0);
+          opacity: "0"
+        },300, function() {
+          inputEvent(0);
+        });
+        center_square_2.animate({
+        fill: "#D3D3D3"
+      },300);
         center_square_1.attr({
         fill: "#5ec37f"
       });
@@ -259,9 +263,13 @@ jsPsych.plugins['coact-grid-choice'] = (function() {
 
       center_image_2.click(function() {
         center_image_1.animate({
-          opacity: "0.1"
-        },300);
-        inputEvent(1);
+          opacity: "0"
+        },300, function() {
+          inputEvent(1);
+        });
+        center_square_1.animate({
+        fill: "#D3D3D3"
+      },300);
         center_square_2.attr({
         fill: "#5ec37f"
       });
@@ -286,7 +294,7 @@ jsPsych.plugins['coact-grid-choice'] = (function() {
       var trial_data = {
         images: trial.images,
         rt: response.rt,
-        choices: response.choices,
+        chosen_index: response.choice,
         chosen_image:response.chosen_image,
         chosen_audio: response.chosen_audio,
         central_images: trial.central_images,

@@ -46,6 +46,13 @@ jsPsych.plugins['coact-grid-choice-audio'] = (function() {
         array: false,
         description: 'Central chosen audio'
       },
+      chosen_index: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Chosen Index',
+        default: undefined,
+        array: false,
+        description: 'Index of central chosen image'
+      },
       first_choice_location: {
         type:jsPsych.plugins.parameterType.STRING,
         pretty_name: 'First Choice Location',
@@ -69,7 +76,7 @@ jsPsych.plugins['coact-grid-choice-audio'] = (function() {
       trial_duration: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Trial duration',
-        default: 2500,
+        default: 3000,
         description: 'The maximum duration to wait for a response.'
       },
       trial_ends_after_audio: {
@@ -280,6 +287,28 @@ jsPsych.plugins['coact-grid-choice-audio'] = (function() {
       } else {
         var center_image_1 = s.image(trial.central_images[1], center_image_locations[0][0], center_image_locations[0][1], trial.image_size[0]+25,trial.image_size[1]+25);
         var center_image_2 = s.image(trial.central_images[0], center_image_locations[1][0], center_image_locations[1][1], trial.image_size[0]+25,trial.image_size[1]+25);
+      }
+
+      if (trial.chosen_index == 0) {
+        center_square_1.attr({
+        fill: "#5ec37f"
+      });
+        center_image_2.attr({
+          opacity: "0"
+        });
+        center_square_2.attr({
+        fill: "#D3D3D3"
+      });
+      } else if (trial.chosen_index == 1) {
+        center_square_2.attr({
+        fill: "#5ec37f"
+      });
+        center_image_1.attr({
+          opacity: "0"
+        });
+        center_square_1.attr({
+        fill: "#D3D3D3"
+      });
       }
 
     function setupTrial() {
