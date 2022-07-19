@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="js/snap.svg-min.js"></script>
+  <script src="jspsych-6.3.1/jspsych.js"></script>
+  <script src="coact-test-prompt.js"></script>
+  <script src="coact-test.js"></script>
+  <script src="coact-grid.js"></script>
+  <script src="coact-grid-choice.js"></script>
+  <script src="coact-grid-choice-audio.js"></script>
+  <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
+  <script src="jspsych-6.3.1/plugins/jspsych-survey-text.js"></script>
+  <link rel="stylesheet" href="jspsych-6.3.1/css/jspsych.css">
+</head>
+<body></body>
+<script> 
+  var timeline = [];
+
+  //general function for grabbing parameter from a URL
+  function getParamFromURL( name ) {
+    name = name.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");
+    var regexS = "[\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null )
+      return "";
+    else
+      return results[1];
+  }
+
+  var subject_id_prompt = {
+    type: 'survey-text',
+    questions: [{prompt: 'Please enter the participant ID:', name: "subject_id"}],
+    on_finish: function() {
+      console.log(jsPsych.data.get().last(1).values()[0].response.subject_id)
+      jsPsych.data.addProperties({
+    subject_id: jsPsych.data.get().last(1).values()[0].response.subject_id
+  });
+    }
+  }
+  
+  var subject_id = getParamFromURL("subject_id");
+  if (subject_id=="") {
+    timeline.push(subject_id_prompt)
+  }
+
+  //organize stimuli
+  var familiar_stims = ["duck","butterfly","cat","cow","horse","frog","squirrel","wolf"];
+  var experimental_stims_familiar = ["dog","bear","pig","rabbit","tiger","turtle","zebra","elephant"];
+  var experimental_stims_somewhat_familiar =["koala","dolphin","flamingo", "raccoon","porcupine","hippopotamus","lobster","jaguar"];
+  var experimental_stims_somewhat_unfamiliar = ["sloth","antelope","armadillo","aardvark","chameleon","manatee","alpaca","lynx"];
+  var experimental_stims_unfamiliar = ["tapir","wombat","narwhal","cormorant","echidna","nyala","pangolin","tarsier"];
+
+  //put all items together
+  var all_items = familiar_stims.concat(experimental_stims_familiar,experimental_stims_somewhat_familiar,experimental_stims_somewhat_unfamiliar,experimental_stims_unfamiliar);
+  var all_images = [];
+  var image_path = "stims/images/";
+  var img_ext = ".png";
+  for (i=0; i<all_items.length; i++) {
+    all_images.push(image_path+all_items[i]+img_ext)
+  }
+  console.log(all_images);
+  var all_audio= [];
+  var audio_array = ["find_","wheres_","its_","thats_"]
+  var audio_path = "stims/audio/"
+  var audio_ext = ".wav";
+  for (i=0; i<all_items.length; i++) {
+    for (j=0; j<audio_array.length; j++) {
+      all_audio.push(audio_path+audio_array[j]+all_items[i]+audio_ext)
+    }
+  }
+  console.log(all_audio);
+
+//preload
+  var preload = {
+    type: 'preload',
+    auto_preload: true,
+    images: all_images,
+    audio: all_audio
+  }
+  timeline.push(preload)
+
+  //shuffle stims
+  var shuffled_familiar_stims = jsPsych.randomization.shuffle(familiar_stims);
+  var shuffled_experimental_stims_familiar = jsPsych.randomization.shuffle(experimental_stims_familiar);
+  var shuffled_experimental_stims_somewhat_familiar = jsPsych.randomization.shuffle(experimental_stims_somewhat_familiar);
+  var shuffled_experimental_stims_somewhat_unfamiliar = jsPsych.randomization.shuffle(experimental_stims_somewhat_unfamiliar);
+  var shuffled_experimental_stims_unfamiliar = jsPsych.randomization.shuffle(experimental_stims_unfamiliar);;
+
+  var num_stims_per_category = 2;
+  var num_sets = 4;
+  var num_rounds = 2;
+  var sample_number = 6;
+  var carrier_train_array = ["its_","its_","its_","thats_","thats_","thats_"];
+  var first_train_choice_location_array = ["left","left","left","right","right","right"];
+  var carrier_test_array = ["wheres_","wheres_","wheres_","wheres_","find_","find_","find_","find_"];
+  
+  //construct all round blocks
+  var round_stims = [];
+  for (i=0; i<num_sets; i++) {
+    var cur_round_set = [];
+    for (j=0; j<num_stims_per_category; j++) {
+      cur_index = i * num_stims_per_category + j
+      cur_dict_familiar = {
+        "name": shuffled_experimental_stims_familiar[cur_index],
+        "item_type": "familiar"
+      }
+      cur_round_set.push(cur_dict_familiar);
+      cur_dict_somewhat_familiar = {
+        "name": shuffled_experimental_stims_somewhat_familiar[cur_index],
+        "item_type": "somewhat familiar"
+      }
+      cur_round_set.push(cur_dict_somewhat_familiar);
+      cur_dict_somewhat_unfamiliar = {
+        "name": shuffled_experimental_stims_somewhat_unfamiliar[cur_index],
+        "item_type": "somewhat unfamiliar",
+      }
+      cur_round_set.push(cur_dict_somewhat_unfamiliar);
+      cur_dict_unfamiliar = {
+        "name": shuffled_experimental_stims_unfamiliar[cur_index],
+        "item_type": "unfamiliar"
+      }
+      cur_round_set.push(cur_dict_unfamiliar);
+    }
+    var shuffled_cur_round_set = jsPsych.randomization.shuffle(cur_round_set);
+    round_stims.push(shuffled_cur_round_set)
+  };
+
+  //construct test materials
+
+  // var round_1_test_set = round_stims[0].concat(round_stims[1]);
+  // var round_2_test_set = round_stims[2].concat(round_stims[3]);
+
+  // console.log(round_stims);
+  // console.log(round_1_test_set);
+  // console.log(round_2_test_set);
+
+  // ROUND 1 //
+
+  function generate_test(test_set,round_type,set,reps=1) {
+    var test_block=[];
+    var test_images=[];
+    for (k=0; k<test_set.length; k++) {
+          test_images.push(image_path+test_set[k]["name"]+img_ext);
+        }
+
+    for (i=0; i<reps; i++) {
+      cur_test_set = jsPsych.randomization.shuffle(test_set);
+      cur_carrier_set = jsPsych.randomization.shuffle(carrier_test_array);
+      for (j=0; j<cur_test_set.length; j++) {
+        var test_trial =[];
+
+        var cur_target = cur_test_set[j]["name"];
+        var cur_target_image = image_path+cur_target+img_ext;
+        var cur_target_audio = audio_path+cur_carrier_set[j]+cur_target+audio_ext;
+        var cur_target_type = cur_test_set[j]["item_type"];
+
+        var shuffled_images = jsPsych.randomization.shuffle(test_images);
+
+        var test_prompt = {
+          type: 'coact-test-prompt',
+          images: shuffled_images,
+          data: {
+            trial_type: "test_prompt",
+            cur_target: cur_target,
+            cur_target_image: cur_target_image,
+            cur_target_type: cur_target_type,
+            round_type: round_type,
+            set: set
+          }
+        }
+
+        var test_response = {
+          type: 'coact-test',
+          images: shuffled_images,
+          test_audio: cur_target_audio,
+          trial_ends_after_audio: false,
+          data: {
+            trial_type: "test",
+            cur_target: cur_target,
+            cur_target_image: cur_target_image,
+            cur_target_type: cur_target_type,
+            round_type: round_type,
+            set: set
+          }
+        }
+        test_trial.push(test_prompt);
+        test_trial.push(test_response);
+        test_block.push(test_trial);
+      }
+    }
+
+    return(test_block)
+    }
+
+    //build test blocks and combine into test round, then shuffle
+    var test_block_1 = generate_test(round_stims[0],"pretest",1,reps=1);
+    var test_block_2 = generate_test(round_stims[1],"pretest",2,reps=1);
+    var test_round = test_block_1.concat(test_block_2);
+    var test_round_shuffled = jsPsych.randomization.shuffle(test_round);
+
+    //timeline = timeline.concat(test_round_shuffled.flat());
+
+  console.log(timeline)
+
+  function generate_sample(sample_set,condition,set,sample_num) {
+    var sample_block = [];
+    cur_carrier_set = jsPsych.randomization.shuffle(carrier_train_array);
+    cur_first_choice_location_array = jsPsych.randomization.shuffle(first_train_choice_location_array);
+
+    for (j=0; j<sample_num; j++) {
+      var cur_sample_images=[];
+      var cur_sample_audio=[];
+      var cur_sample_names =[];
+
+      var shuffled_sample_set = jsPsych.randomization.shuffle(sample_set);
+      for (k=0; k<shuffled_sample_set.length; k++) {
+          cur_sample_images.push(image_path+shuffled_sample_set[k]["name"]+img_ext);
+          cur_sample_names.push(shuffled_sample_set[k]["name"])
+          cur_sample_audio.push(audio_path+cur_carrier_set[j]+shuffled_sample_set[k]["name"]+audio_ext)
+          }
+
+        // create trial
+        var trial = {
+          type: 'coact-grid',
+          images: cur_sample_images,
+          image_stimuli_names: cur_sample_names,
+          image_audio_names: cur_sample_audio,
+          first_choice_location: cur_first_choice_location_array[j]
+        };
+
+        var trial_2 = {
+         type: 'coact-grid-choice',
+         images: cur_sample_images,
+         central_images: function() {
+          console.log(jsPsych.data.get().last(1).values()[0].chosen_images);
+          return jsPsych.data.get().last(1).values()[0].chosen_images
+        },
+        central_audio: function() {
+          console.log(jsPsych.data.get().last(1).values()[0].chosen_audio_items);
+          return jsPsych.data.get().last(1).values()[0].chosen_audio_items
+        },
+          first_choice_location: cur_first_choice_location_array[j]
+      };
+
+      var trial_3 = {
+        type: 'coact-grid-choice-audio',
+        images: cur_sample_images,
+        central_images: function() {
+          console.log(jsPsych.data.get().last(1).values()[0]);
+          return jsPsych.data.get().last(1).values()[0].central_images
+        },
+        chosen_image: function() {
+          console.log(jsPsych.data.get().last(1).values()[0].chosen_image)
+          return jsPsych.data.get().last(1).values()[0].chosen_image
+        },
+        chosen_audio: function() {
+          console.log(jsPsych.data.get().last(1).values()[0].chosen_audio)
+          return jsPsych.data.get().last(1).values()[0].chosen_audio
+        },
+          first_choice_location: cur_first_choice_location_array[j]
+      };
+
+      sample_block.push(trial);
+      sample_block.push(trial_2);
+      sample_block.push(trial_3);
+    }
+
+    return(sample_block)
+  }
+
+  var sample_block_1 = generate_sample(round_stims[0],"active",1,sample_number);
+
+  console.log(sample_block_1)
+
+  timeline = timeline.concat(sample_block_1);
+
+  
+
+
+
+  jsPsych.init({
+    timeline: timeline,
+    on_finish: function() {
+      jsPsych.data.displayData();
+    }
+  });
+</script>
+
+</html>
