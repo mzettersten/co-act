@@ -57,6 +57,19 @@ jsPsych.plugins['coact-grid'] = (function() {
         pretty_name: 'First Choice Location',
         default: "left",
         description: "Parameter specifying the location of the first image selected"
+      },
+      condition: {
+        type:jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Condition',
+        default: "active",
+        description: "Parameter specifying whether the procedure is 'active' or 'passive'"
+      },
+      random_choices: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Random Choices',
+        array: true,
+        default: [0,1],
+        description: 'Array specifying random image selections, if condition is passive.'
       }
     }
   }
@@ -195,6 +208,7 @@ jsPsych.plugins['coact-grid'] = (function() {
     var image7 = s.image(trial.images[6], imageLocations[6][0], imageLocations[6][1],trial.image_size[0],trial.image_size[1]);
     var image8 = s.image(trial.images[7], imageLocations[7][0], imageLocations[7][1], trial.image_size[0],trial.image_size[1]);
 
+    if (trial.condition == "active") {
 
 
     image1.click(function() {
@@ -254,6 +268,21 @@ jsPsych.plugins['coact-grid'] = (function() {
       inputEvent(7)
     });
 
+  } else {
+
+    var full_scene  = s.group(
+      back,
+      square1,square2,square3,square4,square5,square6,square7,square8,
+      image1,image2,image3,image4,image5,image6,image7,image8,
+      center_back,center_square_1,center_square_2
+      );
+
+    full_scene.click(function() {
+      full_scene.unclick();
+      animate_squares(trial.random_choices[0],500,setTimeout(function() {animate_squares(trial.random_choices[1],500)},1000));
+})
+  }
+
     function inputEvent(imChoice) {
       number_choices = number_choices + 1;
       // measure rt
@@ -264,22 +293,63 @@ jsPsych.plugins['coact-grid'] = (function() {
       response.chosen_images.push(trial.images[imChoice]);
       response.chosen_items.push(trial.image_stimuli_names[imChoice]);
       response.chosen_audio.push(trial.image_audio_names[imChoice]);
+      console.log(number_choices);
 
       if (number_choices > 1) {
-        image1.unclick();
-        image2.unclick();
-        image3.unclick();
-        image4.unclick();
-        image5.unclick();
-        image6.unclick();
-        image7.unclick();
-        image8.unclick();
+        if (trial.condition == "active") {
+          image1.unclick();
+          image2.unclick();
+          image3.unclick();
+          image4.unclick();
+          image5.unclick();
+          image6.unclick();
+          image7.unclick();
+          image8.unclick();
+        }
 
-        centerChoices(response.chosen_images);
+        setTimeout(function() {centerChoices(response.chosen_images)},1000);
       }
 
 
       
+    }
+
+    function animate_squares(input_index,timing,callback) {
+      if (input_index == 0) {
+        square1.animate({
+        fill: "#5ec37f"
+      },timing,inputEvent(0));
+      } else if (input_index == 1) {
+        square2.animate({
+        fill: "#5ec37f"
+      },timing,inputEvent(1));
+      } else if (input_index == 2) {
+        square3.animate({
+        fill: "#5ec37f"
+      },timing,inputEvent(2));
+      } else if (input_index == 3) {
+        square4.animate({
+        fill: "#5ec37f"
+      },timing,inputEvent(3));
+      } else if (input_index == 4) {
+        square5.animate({
+        fill: "#5ec37f"
+      },timing,inputEvent(4));
+      } else if (input_index == 5) {
+        square6.animate({
+        fill: "#5ec37f"
+      },timing,inputEvent(5));
+      } else if (input_index == 6) {
+        square7.animate({
+        fill: "#5ec37f"
+      },timing,inputEvent(6));
+      } else if (input_index == 7) {
+        square8.animate({
+        fill: "#5ec37f"
+      },timing,inputEvent(7));
+      }
+
+      typeof callback === 'function' && callback();
     }
 
     function centerChoices(choice_images) {

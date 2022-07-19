@@ -238,6 +238,8 @@ $('body,html').addClass('stop-scrolling');
           image_stimuli_names: cur_sample_names,
           image_audio_names: cur_sample_audio,
           first_choice_location: cur_first_choice_location_array[j],
+          condition: "passive",
+          random_choices: [0,1],
           data: {
             trial_type: "sampling",
             condition: condition,
