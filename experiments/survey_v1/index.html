@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <script src="jspsych-6.3.1/jspsych.js"></script>
+    <script src="js/papaparse.min.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-survey-likert.js"></script>
+    <link rel="stylesheet" href="jspsych-6.3.1/css/jspsych.css">
+  </head>
+  <body></body>
+  <script>
+
+
+    //general function for grabbing parameter from a URL
+  function getParamFromURL( name ) {
+    name = name.replace(/[\[]/,"\\[").replace(/[\]]/,"\\]");
+    var regexS = "[\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( window.location.href );
+    if( results == null )
+      return "";
+    else
+      return results[1];
+  }
+
+
+    var subject_id = getParamFromURL("subject_id");
+  if (subject_id=="") {
+    //timeline.push(experiment_prompt)
+    prompt("Enter subject id", "test");
+  }
+
+  subject_id.replace(/[^A-Za-z0-9_]/g, "");
+
+jsPsych.data.addProperties({
+  subject: subject_id,
+});
+   
+
+	//organize stimuli
+  var familiar_stims = ["duck","cat","cow","butterfly","horse","frog","squirrel","wolf"];
+  var experimental_stims_familiar = ["dog","bear","pig","rabbit","tiger","turtle","zebra","elephant"];
+  var experimental_stims_somewhat_familiar =["koala","dolphin","flamingo", "raccoon","porcupine","hippopotamus","lobster","jaguar"];
+  var experimental_stims_somewhat_unfamiliar = ["sloth","antelope","armadillo","aardvark","chameleon","manatee","alpaca","lynx"];
+  var experimental_stims_unfamiliar = ["tapir","wombat","narwhal","cormorant","echidna","nyala","pangolin","tarsier"];
+
+  //put all items together
+  var all_items = familiar_stims.concat(experimental_stims_familiar,experimental_stims_somewhat_familiar,experimental_stims_somewhat_unfamiliar,experimental_stims_unfamiliar);
+
+  var all_images = [];
+  var image_path = "stims/images/";
+  var img_ext = ".png";
+  for (i=0; i<all_items.length; i++) {
+    all_images.push(image_path+all_items[i]+img_ext)
+  }
+
+var timeline = [];
+var preload = {
+    type: 'preload',
+    auto_preload: true,
+    images: all_images
+  }
+  timeline.push(preload);
+  var questions = [];
+  var scale = ["definitely not", "probably not", "maybe not", "maybe yes", "probably yes", "definitely yes"];
+
+  var shuffled_items = jsPsych.randomization.shuffle(all_items)
+
+  for (i=0; i<shuffled_items.length; i++) {
+    questions.push({
+        prompt: "<img src='"+"stims/images/"+ shuffled_items[i]+".png"+"' width='100'><h2>"+shuffled_items[i]+"</h2>",
+        labels: scale,
+        required: false, 
+    });
+  };
+
+
+  
+  var likert_trial = {
+      type: 'survey-likert',
+      preamble: "<b>For each word, please indicate whether your child understands the word, from 'definitely not' to 'definitely not'. Please try to use the full scale.</b>",
+      questions: questions
+  };
+
+  timeline = [likert_trial];
+
+
+  jsPsych.init({
+    timeline: timeline,
+    on_finish: function() { jsPsych.data.displayData(); }
+  });
+
+
+  </script>
+</html>
