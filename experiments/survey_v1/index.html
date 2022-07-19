@@ -68,9 +68,9 @@ var preload = {
 
   for (i=0; i<shuffled_items.length; i++) {
     questions.push({
-        prompt: "<img src='"+"stims/images/"+ shuffled_items[i]+".png"+"' width='100'><h2>"+shuffled_items[i]+"</h2>",
+        prompt: "<img src='"+"stims/images/"+ shuffled_items[i]+".png"+"' width='100'><p>Does your child understand the word <b>"+shuffled_items[i]+"</b>?</p>",
         labels: scale,
-        required: false, 
+        required: false
     });
   };
 
@@ -78,8 +78,11 @@ var preload = {
   
   var likert_trial = {
       type: 'survey-likert',
-      preamble: "<b>For each word, please indicate whether your child understands the word, from 'definitely not' to 'definitely not'. Please try to use the full scale.</b>",
-      questions: questions
+      preamble: "<b>For each word, please indicate whether your child understands the word, from 'definitely not' to 'definitely yes'. Please try to use the full scale.</b>",
+      questions: questions,
+      data: {
+        words: shuffled_items
+      }
   };
 
   timeline = [likert_trial];
