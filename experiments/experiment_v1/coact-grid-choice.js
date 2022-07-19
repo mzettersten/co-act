@@ -57,6 +57,19 @@ jsPsych.plugins['coact-grid-choice'] = (function() {
         pretty_name: 'First Choice Location',
         default: "left",
         description: "Parameter specifying the location of the first image selected"
+      },
+      condition: {
+        type:jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Condition',
+        default: "active",
+        description: "Parameter specifying whether the procedure is 'active' or 'passive'"
+      },
+      random_choice: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Random Choice',
+        array: false,
+        default: 0,
+        description: 'Specifies random image selection, if condition is passive.'
       }
     }
   }
@@ -247,6 +260,8 @@ jsPsych.plugins['coact-grid-choice'] = (function() {
         var center_image_2 = s.image(trial.central_images[0], center_image_locations[1][0], center_image_locations[1][1], trial.image_size[0]+25,trial.image_size[1]+25);
       }
 
+      if (trial.condition == "active") {
+
       center_image_1.click(function() {
         center_image_2.animate({
           opacity: "0"
@@ -275,9 +290,48 @@ jsPsych.plugins['coact-grid-choice'] = (function() {
       });
         });
 
+    } else {
+      var center_scene  = s.group(center_back,center_square_1,center_square_2,center_image_1,center_image_2);
+      center_scene.click(function() {
+        center_scene.unclick();
+        animate_square(trial.random_choice);
+      })
+    }
+
+    function animate_square(input_index) {
+      if (input_index == 0) {
+        center_image_2.animate({
+          opacity: "0"
+        },300, function() {
+          inputEvent(0);
+        });
+        center_square_2.animate({
+        fill: "#D3D3D3"
+      },300);
+        center_square_1.attr({
+        fill: "#5ec37f"
+      });
+    } else if (input_index == 1) {
+        center_image_1.animate({
+          opacity: "0"
+        },300, function() {
+          inputEvent(1);
+        });
+        center_square_1.animate({
+        fill: "#D3D3D3"
+      },300);
+        center_square_2.attr({
+        fill: "#5ec37f"
+      });
+      }
+    }
+
     function inputEvent(imChoice) {
-    center_image_1.unclick();
+      if (trial.condition == "active") {
+        center_image_1.unclick();
         center_image_2.unclick();
+
+      }
         // measure rt
         var end_time = performance.now();
         var rt = end_time - start_time;
