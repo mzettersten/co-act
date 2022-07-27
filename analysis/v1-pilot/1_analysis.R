@@ -64,6 +64,8 @@ test_exp <- exp_data %>%
     accuracy=mean(correct,na.rm=TRUE)
   ) %>%
   ungroup()
+test_exp$round_type <- fct_relevel(test_exp$round_type,"pretest","posttest")
+
 
 overall_exp <- test_exp %>%
   group_by(round_type) %>%
@@ -93,4 +95,13 @@ exp_data %>%
   geom_hline(yintercept=1/8,linetype="dashed")+
   theme_cowplot()
 ggsave(here(figure_path,"coact_v1_pilot_change_pre_post_aoa.pdf"))
+
+## plot aoa by subject
+test_exp %>%
+  filter(round_type %in% c("pretest","posttest")) %>%
+  ggplot(aes(round_type,accuracy,group=subject_id,color=subject_id))+
+  geom_point()+
+  geom_line()+
+  theme_cowplot()
+ggsave(here(figure_path,"coact_v1_pilot_change_pre_post_subject.pdf"))
 
