@@ -5,6 +5,7 @@
     <script src="jspsych-6.3.1/jspsych.js"></script>
     <script src="js/papaparse.min.js"></script>
     <script src="jspsych-6.3.1/plugins/jspsych-survey-likert.js"></script>
+    <script src="jspsych-6.3.1/plugins/jspsych-preload.js"></script>
     <link rel="stylesheet" href="jspsych-6.3.1/css/jspsych.css">
   </head>
   <body></body>
@@ -90,7 +91,9 @@ var preload = {
 
   jsPsych.init({
     timeline: timeline,
-    on_finish: function() { jsPsych.data.displayData(); }
+    on_finish: function() { 
+      //jsPsych.data.displayData(); 
+      jsPsych.data.get().localSave('csv','p001.csv');}
   });
 
 
