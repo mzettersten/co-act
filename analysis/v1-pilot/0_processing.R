@@ -28,7 +28,15 @@ exp_data <- exp_data %>%
   mutate(correct_helper = ifelse(cur_target_image == chosen_image,1,0)) %>%
   relocate(correct_helper,.after=correct) %>%
   mutate(correct = ifelse(!is.na(correct_helper),correct_helper,correct)) %>%
-  mutate(correct=as.numeric(correct))
+  mutate(correct=as.numeric(correct)) %>%
+  mutate(
+    target_word = case_when(
+      is.na(target) ~ cur_target,
+      TRUE ~ target
+    )
+  ) %>%
+  relocate(target_word,.after=target) %>%
+  left_join(stim_info,by=c("target_word"="word"))
 
 write_csv(exp_data,here(processed_path,"coact_pilot_v1_processed.csv"))
 

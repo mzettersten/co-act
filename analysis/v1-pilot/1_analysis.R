@@ -1,9 +1,11 @@
 library(tidyverse)
 library(ggplot2)
 library(here)
+library(cowplot)
 
 #paths
 data_path <- here("analysis","v1-pilot","processed_data")
+figure_path <- here("analysis","v1-pilot","figures")
 #read in data
 exp_data <- read.csv(here(data_path,"coact_pilot_v1_processed.csv"))
 survey_data <- read.csv(here(data_path, "coact_pilot_v1_survey_processed.csv"))
@@ -18,6 +20,7 @@ ggplot(survey_data,aes(aoa,rating,color=participant_id))+
 ggplot(survey_data,aes(aoa_nas_filled,rating,color=participant_id))+
   geom_jitter(width=0.05)+
   geom_smooth()
+ggsave(here(figure_path,"coact_v1_survey_aoa.pdf"))
 #look at each participant more specifically - are we creating a gradient?
 #looks pretty good, oldest kid has the "weakest" gradient (so maybe need to make it harder?)
 ggplot(survey_data,aes(aoa,rating))+
@@ -38,6 +41,7 @@ ggplot(survey_data,aes(AoAtestbased,rating,color=participant_id))+
 ggplot(survey_data,aes(familiar_classification,rating))+
   geom_boxplot()+
   geom_jitter(width=0.05,alpha=0.3)
+ggsave(here(figure_path,"coact_v1_survey_fam_class.pdf"))
 
 #by animal and classification
 survey_data %>%
@@ -46,6 +50,7 @@ survey_data %>%
   geom_boxplot()+
   facet_wrap(~familiar_classification,scale="free_x")+
   theme(axis.text.x=element_text(angle = 90))
+ggsave(here(figure_path,"coact_v1_survey_item_rating.pdf"))
 
 #### EXPERIMENT DATA ####
 
@@ -77,8 +82,15 @@ overall_exp %>%
   geom_bar(stat="identity")+
   geom_errorbar(aes(ymin=mean_accuracy-ci,ymax=mean_accuracy+ci),width=.05)+
   geom_hline(yintercept=1/8,linetype="dashed")
+ggsave(here(figure_path,"coact_v1_pilot_change_pre_post.pdf"))
 
-ggplot(exp_data,aes(round_type,correct))+
-  geom_bar()
-
+## plot aoa
+exp_data %>%
+  filter(round_type %in% c("pretest","posttest")) %>%
+  ggplot(aes(aoa,correct, color=round_type))+
+  geom_jitter(width=0.05,height=0.05)+
+  geom_smooth()+
+  geom_hline(yintercept=1/8,linetype="dashed")+
+  theme_cowplot()
+ggsave(here(figure_path,"coact_v1_pilot_change_pre_post_aoa.pdf"))
 
