@@ -17,12 +17,18 @@ exp_data <- map(exp_filepaths, ~{read_csv(.x,col_types = cols(.default = "c"))})
 survey_filepaths <- list.files(survey_path, full.names = TRUE, pattern = ".csv")
 survey_data <- map(survey_filepaths, ~{read_csv(.x,col_types = cols(.default = "c"))}) %>% 
   bind_rows()
-stim_info <- read.csv(here(survey_path,"CoAct_stimuli_items_with_info.csv"))
+stim_info <- read.csv(here(processed_path,"CoAct_stimuli_items_with_info.csv")) %>%
+  mutate(aoa_adj=case_when(
+    is.na(aoa) ~ max(aoa,na.rm=TRUE),
+    TRUE ~ aoa
+  ))
+stim_info_renamed <- stim_info
+colnames(stim_info_renamed) <- paste0(colnames(stim_info),"_grid")
 
 #### EXPERIMENT DATA ####
 
 exp_data <- exp_data %>%
-  filter(trial_type %in% c("coact-test","coact-grid","coact-grid-choice-audio")) %>%
+  filter(trial_type %in% c("coact-test","coact-grid","coact-grid-choice","coact-grid-choice-audio")) %>%
   mutate(trial_index=as.numeric(as.character(trial_index))) %>%
   filter(!(subject_id=="p002"&trial_index>198)) %>%
   mutate(correct_helper = ifelse(cur_target_image == chosen_image,1,0)) %>%
@@ -36,7 +42,14 @@ exp_data <- exp_data %>%
     )
   ) %>%
   relocate(target_word,.after=target) %>%
-  left_join(stim_info,by=c("target_word"="word"))
+  left_join(stim_info,by=c("target_word"="word")) %>%
+  mutate(
+    chosen_word = str_remove(
+      str_remove(
+        str_remove(
+          str_remove(chosen_audio,"stims/audio/"),"thats_"),"its_"),".wav")
+  ) %>%
+  left_join(stim_info_renamed,by=c("chosen_word"="word_grid"))
 
 write_csv(exp_data,here(processed_path,"coact_pilot_v1_processed.csv"))
 
