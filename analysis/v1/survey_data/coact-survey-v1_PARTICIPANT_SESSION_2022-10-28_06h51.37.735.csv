@@ -1,0 +1,4 @@
+"trial_type","trial_index","time_elapsed","internal_node_id","subject","rt","response","success","timeout","failed_images","failed_audio","failed_video"
+"pavlovia","0","3","0.0-0.0","p029","","","","","","",""
+"survey-text","1","150162077","0.0-1.0","p029","3424568","{""subject"":""p029""}","","","","",""
+"preload","2","150162127","0.0-2.0","p029","","","true","false","[]","[]","[]"

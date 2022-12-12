@@ -1,0 +1,4 @@
+"trial_type","trial_index","time_elapsed","internal_node_id","subject","success","timeout","failed_images","failed_audio","failed_video","rt","response","question_order","words"
+"pavlovia","0","3","0.0-0.0","test","","","","","","","","",""
+"preload","1","217","0.0-1.0","test","true","false","[]","[]","[]","","","",""
+"survey-likert","2","3262","0.0-2.0","test","","","","","","3044","{""Q0"":""""}","[0]","[""wolf"",""cat"",""frog"",""koala"",""nyala"",""tiger"",""rabbit"",""horse"",""chameleon"",""raccoon"",""sloth"",""jaguar"",""dolphin"",""pig"",""duck"",""cow"",""antelope"",""tapir"",""lobster"",""tarsier"",""hippopotamus"",""squirrel"",""aardvark"",""armadillo"",""bear"",""porcupine"",""flamingo"",""lynx"",""elephant"",""pangolin"",""zebra"",""dog"",""wombat"",""turtle"",""butterfly"",""cormorant"",""narwhal"",""alpaca"",""manatee"",""echidna""]"

@@ -1,0 +1,4 @@
+"trial_type","trial_index","time_elapsed","internal_node_id","subject","success","timeout","failed_images","failed_audio","failed_video"
+"pavlovia","0","4","0.0-0.0","test","","","","",""
+"preload","1","36","0.0-1.0","test","true","false","[]","[]","[]"
+"pavlovia","2","38","0.0-2.0","test","","","","",""
