@@ -3,20 +3,19 @@ library(ggplot2)
 library(here)
 library(jsonlite)
 library(janitor)
+source("helper_functions.R")
 
 #paths
-exp_path <- here("analysis","v1-pilot","experiment_data")
-survey_path <- here("analysis","v1-pilot","survey_data")
-processed_path <- here("analysis","v1-pilot","processed_data")
+exp_path <- here("experiment_data")
+survey_path <- here("survey_data")
+processed_path <- here("processed_data")
 
 #read in experimental data
-exp_filepaths <- list.files(exp_path, full.names = TRUE, pattern = ".csv")
-exp_data <- map(exp_filepaths, ~{read_csv(.x,col_types = cols(.default = "c"))}) %>% 
-  bind_rows()
+exp_data <- read_and_combine_data(exp_path,column_types = cols(.default = "c"))
 #read in survey data
-survey_filepaths <- list.files(survey_path, full.names = TRUE, pattern = ".csv")
-survey_data <- map(survey_filepaths, ~{read_csv(.x,col_types = cols(.default = "c"))}) %>% 
-  bind_rows()
+survey_data <- read_and_combine_data(survey_path,column_types = cols(.default = "c"))
+
+
 stim_info <- read.csv(here(processed_path,"CoAct_stimuli_items_with_info.csv")) %>%
   mutate(aoa_adj=case_when(
     is.na(aoa) ~ max(aoa,na.rm=TRUE),
