@@ -18,6 +18,7 @@ survey_data <- read_and_combine_data(survey_path,column_types = cols(.default = 
 
 stim_info <- read.csv(here(processed_path,"CoAct_stimuli_items_with_info.csv")) %>%
   mutate(aoa_adj=case_when(
+    #non-trivial decision - match missing aoas to max aoa
     is.na(aoa) ~ max(aoa,na.rm=TRUE),
     TRUE ~ aoa
   ))
@@ -26,22 +27,11 @@ colnames(stim_info_renamed) <- paste0(colnames(stim_info),"_grid")
 
 #### EXPERIMENT DATA ####
 
+## preprocessing data
 exp_data <- exp_data %>%
   filter(trial_type %in% c("coact-test","coact-grid","coact-grid-choice","coact-grid-choice-audio")) %>%
   mutate(trial_index=as.numeric(as.character(trial_index))) %>%
-  filter(!(subject_id=="p002"&trial_index>198)) %>%
-  mutate(correct_helper = ifelse(cur_target_image == chosen_image,1,0)) %>%
-  relocate(correct_helper,.after=correct) %>%
-  mutate(correct = ifelse(!is.na(correct_helper),correct_helper,correct)) %>%
-  mutate(correct=as.numeric(correct)) %>%
-  mutate(
-    target_word = case_when(
-      is.na(target) ~ cur_target,
-      TRUE ~ target
-    )
-  ) %>%
-  relocate(target_word,.after=target) %>%
-  left_join(stim_info,by=c("target_word"="word")) %>%
+  left_join(stim_info,by=c("target"="word")) %>%
   mutate(
     chosen_word = str_remove(
       str_remove(
@@ -53,12 +43,9 @@ exp_data <- exp_data %>%
 write_csv(exp_data,here(processed_path,"coact_pilot_v1_processed.csv"))
 
 #### SURVEY DATA ####
+
+## preprocessing data
 survey_data <- survey_data %>%
-  mutate(participant_id = case_when(
-    time_elapsed == "222023" ~ "p001",
-    time_elapsed == "222171" ~ "p002",
-    TRUE ~ subject
-  )) %>%
   select(participant_id, trial_type,rt,question_order,response,words) %>%
   filter(trial_type == "survey-likert") %>%
   mutate(response = map(response, ~ fromJSON(.) %>% as.data.frame())) %>%
