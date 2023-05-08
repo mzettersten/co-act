@@ -91,7 +91,7 @@ ggplot(survey_data,aes(aoa_nas_filled,rating))+
 #with the "test-based" AOA
 ggplot(survey_data,aes(AoAtestbased,rating,color=participant_id))+
   geom_jitter(width=0.05)+
-  geom_smooth()
+  geom_smooth(se=F)
 
 #break into categories
 #(our intuitive categories) - looks pretty nice!
@@ -131,6 +131,7 @@ test_exp <- exp_data_final %>%
   filter(trial_type=="coact-test") %>%
   group_by(subject_id,age_group, age_mos,round_type) %>%
   summarize(
+    N=n(),
     accuracy=mean(correct,na.rm=TRUE)
   ) %>%
   ungroup()
@@ -408,15 +409,12 @@ test_exp_diff_condition %>%
   geom_jitter(width=0.1)+
   facet_wrap(~age_group)
 
-
-
 overall_exp_by_age %>%
   filter(round_type=="posttest") %>%
   ggplot(aes(current_condition_name,mean_accuracy))+
   geom_bar(stat="identity")+
   facet_wrap(~age_group)
   
-
 ## plot pre-post-test by item
 exp_data_final %>%
   filter(round_type %in% c("pretest","posttest")) %>%
@@ -505,9 +503,6 @@ average_sampling <- sample_exp %>%
     mean_aoa=mean(aoa_adj_grid),
     mean_diff=mean(diff_choice)
   )
-
-ggplot(average_sampling,aes(condition,mean_aoa))+
-  geom_violin()
 
 ggplot(average_sampling,aes(condition,mean_aoa))+
   geom_violin()
