@@ -12,8 +12,21 @@ processed_path <- here("processed_data")
 
 #read in experimental data
 exp_data <- read_and_combine_data(exp_path,column_types = cols(.default = "c"))
+init_data <- exp_data %>%
+  filter(trial_type=="survey-text") %>%
+  select(subject_id,seed,condition_index,condition_order,condition_vector,condition_name,fam_stims,round_stims,fam_test_index)
 #read in survey data
 survey_data <- read_and_combine_data(survey_path,column_types = cols(.default = "c"))
+#read in participant spreadsheet
+participant_info <- read.csv(here(processed_path,"CoAct Participants Spreadsheet - participants.csv")) %>%
+  rename(
+    condition_part=condition,
+    notes_part=notes,
+    seed_part=seed
+  )
+#read in demographic info
+demographics <- read.csv(here(processed_path,"General Demographics_March 19, 2023_18.18_processed.csv")) %>%
+  mutate(subject_id=tolower(subject_id))
 
 
 stim_info <- read.csv(here(processed_path,"CoAct_stimuli_items_with_info.csv")) %>%
@@ -38,14 +51,19 @@ exp_data <- exp_data %>%
         str_remove(
           str_remove(chosen_audio,"stims/audio/"),"thats_"),"its_"),".wav")
   ) %>%
-  left_join(stim_info_renamed,by=c("chosen_word"="word_grid"))
+  left_join(stim_info_renamed,by=c("chosen_word"="word_grid")) %>%
+  select(-c(seed,condition_index,condition_order,condition_vector,condition_name,fam_stims,round_stims,fam_test_index))
 
-write_csv(exp_data,here(processed_path,"coact_pilot_v1_processed.csv"))
+exp_data <- exp_data %>%
+  left_join(init_data)
+
+write_csv(exp_data,here(processed_path,"coact_v1_processed.csv"))
 
 #### SURVEY DATA ####
 
 ## preprocessing data
 survey_data <- survey_data %>%
+  rename(participant_id=subject) %>%
   select(participant_id, trial_type,rt,question_order,response,words) %>%
   filter(trial_type == "survey-likert") %>%
   mutate(response = map(response, ~ fromJSON(.) %>% as.data.frame())) %>%
@@ -53,12 +71,30 @@ survey_data <- survey_data %>%
                        as.data.frame(row.names=paste0("Q",seq(0,39))) %>% 
                        rownames_to_column(var = "question")))
 
-temp <- survey_data %>%
-  select(participant_id,response) %>%
-  unnest(response) %>%
-  pivot_longer(cols=Q0:Q39,names_to = "question",values_to="rating")
+survey_exclude_list <- c("test","Shashi",NA,"Test","Test2","Test-er","Ellatest","0","555","toyanc")
 
 survey_data <- survey_data %>%
+  filter(!(participant_id %in% survey_exclude_list))
+
+#rename participant ids with errors
+survey_data <- survey_data %>%
+  mutate(
+    participant_id = case_when(
+      participant_id=="p068" & rt == 271735 ~ "p070",
+      participant_id=="p053" & rt == 174169 ~ "p052",
+      participant_id=="p051" & rt == 193985 ~ "p053",
+      TRUE ~ participant_id
+    )
+  )
+
+temp <- survey_data %>%
+  select(participant_id,rt,response) %>%
+  unnest_wider(response) %>%
+  mutate(across(Q0:Q39,~sapply(.x,toString))) %>%
+  mutate(across(Q0:Q39,~sapply(.x,as.numeric))) %>%
+  pivot_longer(cols=Q0:Q39,names_to = "question",values_to="rating") 
+
+survey_data_final <- survey_data %>%
   unnest(words) %>%
   clean_names() %>%
   rename(word = x) %>%
@@ -72,10 +108,28 @@ survey_data <- survey_data %>%
     )
   )
 
-write_csv(survey_data,here(processed_path,"coact_pilot_v1_survey_processed.csv"))
+write_csv(survey_data_final,here(processed_path,"coact_v1_survey_processed.csv"))
 
+#### demographic data ####
 
+demographics_processed <- demographics %>%
+  filter(!(subject_id %in% "test")) %>%
+  filter(gender != "") %>%
+  filter(!(subject_id == "p067" & study=="coAct")) %>% # remove response that was later revised
+  mutate(
+    subject_id = case_when(
+      subject_id == "p0189" ~ "p019",
+      subject_id == "p021" & age == "3" ~ "p020",
+      TRUE ~ subject_id
+    )
+  ) %>%
+  mutate(
+    gender = case_when(
+      gender %in% c("Male","M","Male ","Boy") ~ "m",
+      gender %in% c("Female","Girl","Female ","F") ~ "f"
+    )
+  )
 
-
+write_csv(demographics_processed,here(processed_path,"coact_v1_demographics_processed.csv"))
 
 

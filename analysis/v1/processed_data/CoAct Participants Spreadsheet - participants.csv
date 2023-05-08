@@ -1,0 +1,167 @@
+subject_id,experiment_version,condition,seed,age_group,family_id,room,date,age_mos,age_day_count,experimenter,pilot,exclude,complete,notes,exclude_round_1,exclude_round_2,exclude_round_3,exclude_round_4,participant_level_exclusion,parent_exp_mentions_animal,selection_role_issues,further_review
+p001,pilot_1A,,,3,1070b,fishbowl,7/19/22,42,11,MZ,y,y,,"completed up to (not including) 2nd pre-test
+data file unfortunately not recorded to Pavlovia
+no demographic survey",y,y,y,y,y,n,n,n
+p002,pilot_1A,,,4,51b,outside,7/19/22,59,3,MZ,y,y,,"completed up to (not including) 2nd post-test (experimenter filled out final trials to allow data storage); subject id not stored in experiment data - corresponds to data file ""coact-v1_PARTICIPANT_SESSION_2022-07-19_10h54.17.643.csv""
+caregiver mentioned names of animals as she selected them
+no demographic survey",y,y,y,y,y,y,n,n
+p003,pilot_1B,,,3,4058b,fishbowl,7/20/22,39,26,MZ,y,y,y,"experiment glitched during first learning phase (caregiver+child)
+restarted from beginning (great from there)
+parent survey completed after experiment
+no demographic survey",y,y,y,y,y,n,n,n
+p004,pilot_1C,0,100,5,219b,fishbowl,7/25/22,71,5,JH,y,y,y,"didn't need much instruction once we started
+caught on right away that first two trials were repeated in pre-test and post-test (familiarization)
+wanted to go faster (began pressing center button repeatedly until it turned red in test trials) - allowed this so child could stay engaged
+in 4th condition (p-p), child sometimes pressed red button for/instead of caregiver (reminded child to let caregiver press first, then it was their turn)
+break after 2nd block worked very well",y,y,y,y,y,n,y,n
+p005,pilot_1C,1,100,5,489b,fishbowl,9/20/22,71,1,MZ,y,y,y,great!,n,n,n,n,y,n,n,n
+p006,exp_v1,0,100,3,1052b,fishbowl,9/24/22,36,26,MZ,n,n,y?,"had a hard time getting through the study,  somewhat distracted/ slow/ bored starting round 2 and especially round 4; tried out lots of ways of tapping/ flipping the screen, so I had to help tap at many points; especially last few rounds, did not seem to be attending to the task in selecting animals; parent was great;",n,n,n,n,n,n,n,n
+p007,exp_v1,1,101,4,1824b,fishbowl,9/29/22,48,16,AG,n,n,n ,"chatty and seemed to have a good time, got distracted/bored during second block. break seemed to really help, but still wanted to go back to main room after 3rd block. ended after 3rd block. ",n,n,n,y,n,n,n,n
+p008,exp_v1,0,100,3,3548b,fishbowl,9/30/22,38,21,AG,n,n,y,"super quiet, could tell she got a little tired into the second round but she enjoyed the break. needed a break between rounds 3 and 4 as well. tapped the screen a lot (bc she was tapping with her nail and not her finger)",n,n,n,n,n,n,n,n
+p009,exp_v1,2,102,5,462b,fishbowl,10/4/22,60,16,AG,n,n,y,"wanted to go super quickly, one selection error, tapping very quickly",n,n,n,n,n,n,n,y
+p010,exp_v1,3,103,5,2321a,fishbowl,10/5/22,62,8,AG,n,n,y,"went perfectly! no hiccups, good pace, no selection errors ",n,n,n,n,n,n,n,n
+p011,exp_v1,4,104,5,4481a,fishbowl ,10/5/22,62,4,AG,n,n,y,"EXCLUDE 4th round only; one selection error, and button went black during the fourth round of parent + child selection (I have a screenshot) so I had to restart the fourth round ",n,n,n,y,n,n,n,n
+p012,exp_v1,5,105,5,4243a,fishbowl,10/5/22,69,13,MZ,n,n,y,"great - seemed to think that he was ""correct"" for every animal in the first two rounds, then noticed that he had gotten one wrong (""Oh THAT'S the echidna"") during second round. Occasionally asked parent to choose specific animals (maybe 1-2 times)",n,n,n,n,n,n,n,n
+p013,exp_v1,6,106,4,17b,fishbowl,10/6/22,54,13,MZ,n,n,y,"first round was really tough to get through and I originally thought he would not make it beyond round 1. I had to make several selections for him (1 is chameleon, check tape for other one)  in round 1 - he had a very strong reaction whenever unknown words popped up and didn't want to make selections. I figured out a strategy in round 2 where I had him tell me when to ""stop"" and make a selection for him when he didn't want to respond, so round 2 was a mix of his responses and ""stop"" responses during *pretest*. Round 2 went ok, then warmed up quite a lot after break and made it through the last two rounds great. If round 1 is included check video for specific responses to exclude. Check round 2 as well, round 3 and 4 were pretty smooth. Sampling went smooth in *all* 4 rounds.",y,n,n,n,n,n,n,y
+p014,exp_v1,7,107,4,2671a,fishbowl,10/7/22,57,25,MZ,n,n,y,ideal appointment. 1-2 helped make a selection in later rounds,n,n,n,n,n,n,n,n
+p015,exp_v1,8,108,3,2342b,fishbowl,10/7/22,40,7,ER,n,n,y,"ella's first appointment, mostly smooth except i might have prompted too much for difficult questions",n,n,n,n,n,n,n,n
+p016,exp_v1,9,109,4,2045b,fishbowl,10/8/22,55,3,MZ,n,n,y,great. sister was in the room coloring during study (but did not interfere in any way),n,n,n,n,n,n,n,n
+p017,exp_v1,10,110,4,3618a,fishbowl,10/10/22,54,29,ER,n,n?,y,"mom informed they were bilingual (Korean) beforehand but would try and stick to English so they spoke in Korean for some of the time; he would look through pictures if he knew the animal but on the harder ones would often just tap randomly; i tried to prompt him to stop and slow down but it was hard to tell the difference between random clicking and guessing
+
+it says in the registry that he hears 20% English, 80% language 2",n?,n?,n?,n?,y,n,n,y
+p018,exp_v1,11,111,3,1888c,fishbowl,10/12/22,38,18,AG,n,y,n ,"kid was very energetic and was tapping like crazy. during round 2 and 3, she was explcit about kjnowing the right answers but choosing the ones she was interested in --> ""i know butterfly is that one but im choosing this one""",?,y,y,NA,y,n,n,y
+p019,exp_v1,12,112,5,565b ,fishbowl,10/12/22,68,6,AG,n,n,y,great! only minor problem was that she accidentally tapped for mom in the passive sampling phase,n,n,n,n,n,n,y,y
+p020,exp_v1,13,113,3,3417b,fishbowl,10/13/22,39,3,MZ,n,n,y,"multi-tap glitch in round 1 during first sampling trial, just moved on to round 2 and otherwise procedure was good; got antsy during round 3, but made it through and was fairly attentive in round 4; had some trouble tapping throughout, so I had to support a number of times (tap pointed selection)",y,n,n,n,n,n,n,n
+p021,exp_v1,14,114,5,2588b,fishbowl,10/13/22,60,15,MZ,n,n,y,"great kid; mom repeated cormorant a few times in round 1, and one other word in round 4 (check) - but probably ok",n,n,n,n,n,y,n,n
+p022,exp_v1,15,115,4,3987a,fishbowl,10/13/22,52,19,AG,n,n,n ,"super high energy and loved the game! had te same blackout issue on round 1, so it wasn't completed. all 3 remaining rounds were completed. one hiccup with tapping on mom's turn in the sampling phase, and one or two slipup with choosing the wrong animal ",y,n,n,n,n,n,y,n
+p023,exp_v1,16,100,3,3969a,fishbowl ,10/13/22,47,8,AG,n,n,n ,"during the first round, the black dot happened again. rounds 2 and 3 went great! during the sampling phase of round 4, child was very adamant about tapping for moms part too. i tried to re-direct, but had no luck. 
+The mother also said something along the lines of ""I want to hear this primate,"" without saying the actual animal name. 
+during round 4, the child was dragging on the screen, which caused the round to restart
+Mom also sat in the chair next to the child for the whole time, not across from the child (so we just had to angle the iPad away from her)",y,n,n,y,n,y,y,y
+p024,exp_v1,17,101,4,739b,fishbowl,10/14/22,54,3,ER,n,n?,n ,"mom was potentially interferring in the first round, but rounds 2 and 4 went great! in round 3 the child had to use the bathroom and the ipad went to sleep so we were not able to save the data from that round ",n,n,y,n,n,n,n,y
+p025,exp_v1,18,102,4,2652b,fishbowl ,10/19/22,54,27,AG,n,n,n ,"quiet but great appointment! during first pre-test of round 2, he had a very very long pause and seemed reluctant to answer. during passive sampling phase of round four, he accidentally pressed the button for dad. other than that, no issues",n,n?,n,n,n,n,y,n
+p026,exp_v1,19,103,4,2785,fishbowl,10/20/22,55,8,MZ,n,n,n ,great kid and family; mom repeated animal names after presented during first sampling round; also repeated alpaca in round 3; otherwise great; child had one instance in a later round where they pressed chameleon (?) but immediately corrected themself to try and press armadillo; supremely cute kid who was enthusiastic throughout,n,n,n,n,n,y,n,y
+p027,exp_v1,20,104,4,660,fishbowl,10/25/22,54,8,ER,n,n,y,"very mellow and focused kiddo! nothing went wrong! he clicked a pre-test animal incorrectly, and then at one point clicked the pig for the hippo - i'm thinking he just got confused because they look similar. also mom talked about a ""pangolin song"" after she did pre-survey and before the experiment but i don't think it interfered because he didn't know the song / was more focused on other things",n,n,n,n,n,n,n,n
+p028,exp_v1,21,105,3,3929a,fishbowl,10/25/22,44,9,AG,n,n,y,"no errors! kid seemed a little less focused at the end. infant sister came and colored w/ mom during study, but mom and sis kept to themselves while child completed study. might be good to watch the video and see what you think! ",n,n,n,n,n,n,n,y
+p029,exp_v1,22,106,5,2986a,fishbowl,10/26/22,64,7,AG,n,n,y,"got through it all, but i got the sense that the kid was randomly picking/picking the same animal over again in the post test for animals he had gotten right in the pre-test. ",n,n,n,n,n,n,n,y
+p030,exp_v1,23,107,4,3024a,fishbowl,10/28/22,58,0,EVH and AG,n,n,y,"did a great job, Mom did not say any animal words during learning phase. He never ""interfered"" and did what the Mom was supposed to do. At some points he did stand up out of chair but never moved to another location. Maintained pretty consistent focus throughout the study.
+No issues",n,n,n,n,n,n,n,n
+p031,exp_v1,0,108,5,2719a,fishbowl,10/28/22,60,5,ER,n,n,y,"most fun kiddo ever! please enjoy the bones song she sang me in the middle of the experiment haha - a few misclicks but only ever on the non-counted trials! i used an animal name accidentally during pretest, but she had already clicked (it was one she already knew). no stickers so i improvised with halloween stuff i found and she LOVED it - kid was an unreasonably good guesser (got all of her guesses right one round haha)",n,n,n,n,n,n,n,n
+p032,exp_v1,1,109,4,423d,fishbowl,11/1/22,56,27,AG,n,n,y ,"great! she had a ton of fun! other than accidentally tapping the button for mom during the sampling phase once in round 1, it went perfectly. ",n,n,n,n,n,n,y,n
+p033,exp_v1,2,110,4,4040a,fishbowl,11/2/22,49,1,ER,n,n,y,kiddo was great!! a bit silly but minimal distractions! ,n,n,n,n,n,n,n,n
+p034,exp_v1,3,111,3,1296b,fishbowl,11/3/22,45,24,EVH,n,not sure,n ,"kid's brother was in the room 
+they were very hyperactive little boys
+kid did not want to sit still in chair and kept falling out on purpose
+did not want to tap screen with one finger. started tapping with his nose at one point
+
+mother had to talk a lot during the study to reprimand/scold him 
+
+while we were doing round 3, the sound stopped working. during the learning phase with the mom she said ""That's a taper"" when it lit up but the tablet didn't play the sound. we had to restart round 3. because we restarted round 3 and the kids were going crazy/ had thrown fits eariler I did not do round 4. 
+
+please watch the recording to decide whether or not to use this data because I am not sure if it is usable",?,?,?,NA,y,n,n,y
+p035,exp_v1,4,112,4,3936a,fishbowl,11/4/22,48,25,EVH,n,n? (But see notes about what happened regarding pre-test survey),y,"Kid was very well behaved
+When there were animals she didn't know, she was hesitant to select one. A few times she would hover her finger above one of the animals and look at me. I told her to take her best guess or to ""tap it"" if she thought it was that one. Basically I told her to go ahead and tap it if she was hovering her finger over it.
+
+No major mishaps occured. Mom did say things like ""It's your turn"" or ""You press it"" during learning phase but she did not say the animal name. Watch recording if you think this is an issue. 
+
+While her mom was doing the pre-test survey about what animals her daughter knows, her daughter was looking over her shoulder for a few seconds.  I think she saw an alpaca on the screen and said something about an alpaca/recognized that it was an alpaca. I got the kid to move away from the mom after a few seconds but I don't know how much she saw and I also don't know her reading abilities/if she was able to read any animal names. During the experiment, she definitely didn't know a bunch of the less common animals like amardillo and comorant and taper and nyala, so I don't think she really ""learned"" anything beforehand from glancing at the survey, but I just wanted to make a note of this. 
+
+Dad was also in the room during the study (watching)",n,n,n,n,n,n,n,n
+p036,exp_v1,5,113,5,3320a,fishbowl,11/9/22,65,12,EVH,n,n,y,"Kid did great, was very enthusiastic. Pretty good at paying attention.
+
+No issues with tapping the screen/kid tapping when parent was supposed to tap
+Parent did not talk at all
+
+kid did talk to herself a lot about the animals (""I want an elephant. That's a dog. etc."") but parent didn't say anything in response",n,n,n,n,n,n,n,n
+p037,exp_v1,6,114,4,3009a,fishbowl,11/9/22,53,9,AG,n,n,y,"kid has had some inner ear problems, mom told me before appointment. kept volume at standard (max-4 clicks) and he didn't have any issues. kid accidentally tapepd once for mom during the sampling phase of round 2. ",,,,,n,n,y,n
+p038,exp_v1,7,115,3,2373b,fishbowl ,11/10/22,41,6,AG,n,n,y,great! no issues besides kid taping once for mom during sampling phase of round 3,n,n,n,n,n,n,y,b
+p039,exp_v1,8,100,4,3258a,fishbowl,11/10/22,53,11,AG,n,n,y,no issues! kid seemed to have a lot of fun ,n,n,n,n,n,n,n,n
+p040,exp_v1,9,101,3,4110a,fishbowl,11/10/22,46,5,EVH,n,n? - see notes,n ,"Kid was very enthusiastic and sweet, but had trouble focusing
+
+When it was Mom's turn to press the red button, he wanted to press it
+When it was Mom's turn to choose animals, he wanted to choose
+
+For one trial when Mom was supposed to choose the two animals, he tapped one of them
+
+Mom did not say the animals' names, but she did have to give him reminders like ""It's your turn"" and to encourage him because he got fussy at some points (he was upset that she got to choose or press the button and not him) -- not sure if this presents a problem.
+
+Was not able to do fourth round due to fussiness
+
+I accidentally had Mom fill out the pre-survey again after the experiment was done (so there are probably two responses from her) -- sorry
+
+He was very sad to leave and wanted to play :(",n,n,n,NA,n,n,y,n
+p041,exp_v1,10,102,5,2474a,fishbowl,11/11/22,68,30,EVH,n,n,y,"He did a great job, never tapped when Mom was supposed to tap
+
+Mom did softly remind him ""It's your turn"" at some points, but never said the animal name
+
+In the last round, he was tapping really fast / he might have lost focus and just wanted to tap random animals to get it done",n,n,n,n,n,n,n,n
+p042,exp_v1,11,103,5,3992b,fishbowl,11/11/22,61,20,AG,n,n,y,"great session, no major issues",n,n,n,n,n,n,n,n
+p043,exp_v1,12,104,5,3165b,fishbowl ,11/11/22,71,14,AG,n,n,y,"older brother was sitting in the recording room during exp, and would frequently yell to get sister (participant) to hear. so, there was a slight noise distraction at times. ",n,n,n,n,n,n,n,y
+p044,exp_v1,13,105,4,3674a,fishbowl,11/15/22,48,20,ER,n,n?,y,"kid was really energetic and kind of dragged his feet (lots of wiggling, etc); mom accidentally biased the first round by saying the animal names and kid kept clicking for mom; afterwards mom would influence his choices and say ""click that one because you don't know what it's name is""; also he maybe was throwing the experiement because he'd click it and laugh but i couldn't tell",y?,n?,n?,n?,y,y,y,y
+p045,exp_v1,14,106,3,3318a,fishbowl,11/17/22,46,,EM,n,y,y,I messed up the script a little bit (first time running so just getting the hang of it); kid also said he needed a break in the middle of a round so restarted a round; couldn't get the debrief and demographic surveys to work and mom had to go so need to send in thank you,y,y,y,y,y,n,n,n
+p046,exp_v1,15,107,5,2090a,fishbowl,11/17/22,70,6,AG,n,n,y,appointment went super smooothly. no issues with tapping or with parent saying animal names during experiment ,n,n,n,n,n,n,n,n
+p047,exp_v1,16,108,5,3335a,fishbowl,11/17/22,61,14,EVH,n,n?,y,"In the learning phase of round 1, kid said something like ""Do you know why I chose the koala?"" and the Mom repeated the word koala in her answer 
+
+In the learning phase of round 2, the kid pressed the red button first on one of the trials when the Mom should have pressed it first
+
+other than that, he was very cooperative and did really well",n,n,n,n,n,y,y,n
+p048,exp_v1,17,109,4,4544b,fishbowl,11/18/22,52,5,ER,n,y,n,"sweetest most fun family ever!! however, the data is pretty much unusable. twin came with and there was no RA to sibling sit (we weren't forwarned he was coming) so he was with us and sometimes repeated the animal name. there was lots of clicking confusion on the rounds with mom, and the twin messed some turns up. due to time pressure (we had to do a fake turn for the twin to feel included) we only did 3/4 rounds and then i gave up bc none of the data was usable anyway haha.
+please enjoy the recording though!! kids knew there were cameras and called them ""robot monkeys"" and frequently talked to them. it's seriously a hilarious video!
+forgot to do two post surveys because of the chaos but hopefully okay since they should most likely be excluded",y,y,y,NA,y,y,y,y
+p049,exp_v1,18,110,4,4237a,fishbowl,11/18/22,40,9,ER,n,y?,n,"kid got through the first round perfectly but was not into it by the second and we barely finished the third. started purposely misclicking, wouldn't sit in the correct seat, and other shenanigans. fourth round was not going to happen so we just gave up!",n,n?,y,NA,n,n,n,y
+p050,exp_v1,19,111,3,3485a,fishbowl,11/28/22,45,28,EVH,n,y,n,"kid was a little hyper
+unfortunately, even though I told Mom *not* to say the animal names prior to the study, she ended up saying the name of an animal in each of the rounds we did, which probably makes the data un-usable
+
+by round 2 he started getting uncoooperative so we only did 3 rounds",y,y,y,NA,y,y,n,y
+p051,exp_v1,20,112,4,2833a,fishbowl,11/29/22,50,8,ER,n,n,y,kid was great! mom said animals in the very first round (practice) but then was great after that! ,n,n,n,n,n,y,n,n
+p052,exp_v1,21,113,4,4507a,fishbowl,11/30/22,50,5,ER,n,y?,y,"kid did great for the first two rounds, except some clicking for mom and general squirminess. third and fourth round he was kind of just clicking what he wanted to click and not the animal.",n,n,y?,y,n,n,y,n
+p053,exp_v1,22,114,5,2613a,fishbowl,11/30/22,65,17,AG,n,n,y,"it went perfectly, no issues ",n,n,n,n,n,n,n,n
+p054,exp_v1,23,115,4,3345b,fishbowl,12/1/22,49,17,EM,n,n,y,mom talked about cormorand with kid during pre-test survey; need to check if mom interfered a tiny bit; kid wanted to choose when it was mom's turn sometimes,n,n,n,n,n,y,y,y
+p055,exp_v1,0,100,3,4039a,fishbowl,12/2/22,43,16,EVH,n,n,y,"did a pretty good job given that she is pretty young
+
+we had to take two breaks because she was restless 
+she really liked this girrafe toy that squeaks and she was squeaking it a lot 
+
+ I think Mom said an animal name at some point during round 2
+
+she liked cats a lot so I think at least once she pressed the cat just because she wanted to and not because she was confused about the animals
+
+this might have happened with some other animals to but it was hard to tell",n,n,n,n,n,y,n,y
+p056,exp_v1,1,101,4,518c,fishbowl,12/5/22,51,14,EVH,n,n?,y,"kid was very cooperative, but I'm not sure if at some points he was randomly choosing animals or if he didn't acutally know them (many animals I thought he would know he got wrong)
+
+dad said one of the animals during round 2 and round 4 learning phase I think",n,n,n,n,n,y,n,y
+p057,exp_v1,2,102,4,3238b,fishbowl,12/6/22,52,6,ER,n,n,y,near perfect appointment! kiddo was shy and liked tapping fast but no issues!,n,n,n,n,n,n,n,n
+p058,exp_v1,3,103,5,2410a,fishbowl,12/9/22,61,7,MZ,n,n,y,"great kiddo - basically a perfect appointment. Kid pressed the red button on the parents' first turn in the practice sampling trial, otherwise extremely smooth",n,n,n,n,n,n,y,n
+p059,exp_v1,4,104,4,3488a,fishbowl,12/16/22,58,20,AG,n,n,y,"awesome kid! he was super excited about the game and there were no issues. during the first survey (ab child's knowledge of animals) she asked him if she knew porcupine. I then mentioned just to fill it out by herself, and that was basically the only note of the apointment. otherwise, everything went perfectly ",n,n,n,n,n,n,n,n
+p060,exp_v1,5,105,5,2663b,fishbowl,2/23/23,67,20,EVH,n,n,y,"Kid followed instructions and was very cooperative, dad never said any animal names, no issues",n,n,n,n,n,n,n,n
+p061,exp_v1,6,106,3,3911a,fishbowl,2/28/23,41,1,AG,n,n,y,init for this kid is already set up; mom said animal name once during sampling phase 1; kid had a lot of issues with tapping (tapped too fast and the ipad wouldn't register his taps),n,n,n,n,n,y,n,n
+p062,exp_v1,7,107,4,1669b,fishbowl,3/2/23,51,27,AG,n,y(?),y,"init for this kid is already set up; younger sister had to be in room but was quite distracting (crying, walking around, random vocalizations) and target child kept looking to her. mom was also a little distracted by sibling in the sampling phases. unsure whether to exclude. also had to turn up volume a little bit so that target child could hear the instructions over sibling. ",y,y,y,y,y,n,n,y
+p063,exp_v1,8,108,3,4775b,fishbowl,3/3/23,42,3,EVH, n,n?,y,"Accidentally gave sticker between learning phase and test phase in round 1, which might have messed up the flow/learning 
+Mom said some things but never an animal
+Child was cooperative but had some trouble tapping the screen, and sometimes when she would have a hard time tapping the original animal she tried to tap, and it didn't work, then she would tap another animal, and I'm not sure if this is because she thought it was actually a different animal /changed her mind or if it was because the iPad didn't register the first time, so she just kept trying other animals until it did register ",?,n,n,n,y,n,n,y
+p064,exp_v1,9,109,3,4079a,fishbowl,3/3/23,39,17,ER,n,n,y,went really well! child clicked for parent once but other than that he was great!,n,n,n,n,n,n,y,n
+p065,exp_v1,10,110,3,3967a,fishbowl,3/3/23,44,11,AG,n,n,y,"really well, quiet kid. some issues with tapping so i had to tap for her a few times. dad had to leave briefly during test phase of round three and dad accidentally said animla name during sampling phase of round 4",n,n,n,n,n,y,n,n
+p066,exp_v1,11,111,5,567b,fishbowl,3/6/23,65,7,EVH,n,n,y,"The parent and child both talked a lot, but the parent never said the animal names during the experiment
+very kind and well behaved
+once in round 3 and twice in round 4, the child tapped when the mom was supposed to ",n,n,n,n,n,n,y,n
+p067,exp_v1,12,112,5,310c,fishbowl,3/6/23,54,3,AG,n,n,y,"went okay, child kept grabbing ipad and tapped for mom during rounds 2 and 3 a few times. as feeling very tired in round 3. ",n,n,n,n,n,n,y,y
+p068,exp_v1,13,113,3,4585b,fishbowl,3/7/23,42,7,AG,n,n?,y,"had sibling. we tried to sibling sit but the kid was inconsolable and needed to be brought in during the test phase of Round 1 (so there was a big interuppion). continued with tapping during this. sibling had to sit with mom during sampling phase of all the remaining rounds , but was generally pretty quiet. sib started crying right after sampling phase of round 2,so there was a small gap between sampling and test phase. kid asked me a lot where the animal was if he didn't know, i kept redirecting by saying ""make your best guess"".",n?,n,n,n,n,n,n,y
+p069,exp_v1,14,114,5,174b,fishbowl,3/7/23,60,10,AG,n,n,y,went very well. I just had to turn down the volume because the kid said it was too loud for him. ,n,n,n,n,n,n,n,n
+p070,exp_v1,15,115,5,4644a,fishbowl,3/8/23,68,10,ECR,n,n,y,perfect appointment!! kiddo was excited and engaged all the way through! she often encouraged her mom to pick out the animals she wanted but mom pretty much did what she wanted and never said any animal names. great appointment!,n,n,n,n,n,n,n,y
+p071,exp_v1,16,100,5,4196d,fishbowl,3/9/23,64,23,EVH,n,n,y,"child pressed when it was Mom's turn one time in round 2
+Mom said animal name one time in round 4
+a few times the kid would press an animal and then be like ""Oh that wasn't it""/realized he pressed the wrong one
+
+overall went pretty well though",n,n,n,n,n,y,y,n
+p072,exp_v1,17,101,5,1899c,fishbowl,3/9/23,64,20,ECR,n,n,y,kid was pretty much an animal expert so knew most of the animals already. family talked a lot about animals but mom was clearly trying not to say names although she whispered it once. mom talked about pangalins before experiment but clearly kid already knew what they were so not really a bias problem. kiddo was engaged the whole time through and had a lot of fun. ,n,n,n,n,n,y,n,n
+p073,exp_v1,18,102,3,4335a,fishbowl,3/10/23,37,10,EVH,n,n,y,"Child got kind of antsy at the end/by the fourth round
+Mom had to have her sit on her lap to do the learning phase of round 4
+I think Mom said the word for an animal during the learning phase of round 4
+
+sometimes she had a little trouble with tapping
+
+overall did pretty well considering how young she was ",n,n,n,n,n,n,n,y
+p074,exp_v1,19,103,5,770b,fishbowl,3/10/23,68,14,ECR,n,n,y,went perfectly!! kid was totally engaged all the way through and mom was quiet about animal names but participated! he knew a lot of the animals already but learned a couple from the game :),n,n,n,n,n,n,n,n
+p075,exp_v1,20,104,5,2295b,fishbowl,3/13/23,68,14,AG,n,n,y,"went great! mom said one animal name during sampling phase of round 2, and kid only had some issues with tapping in the test phase of round 4 (but I was able to support the taps).there was an issue recording the video so the video is missing. ",n,n,n,n,n,y,n,n
+p076,exp_v1,21,105,3,3361b,fishbowl,3/14/23,36,15,AG,n,n,n,"went well. kid became less engaged as rounds went on(needed and extra break betweeen rounds 3 and 4). also attempted round 4 but didn't finish. I said one of the animal names during sampling phase of round 3. in general, i needed to support this kids tapping a lot. kid asked me a lot where the animal was if he didn't know, i kept redirecting by saying ""make your best guess"".",n,n,n,y (did not complete),n,y,n,y
+p077,exp_v1,22,106,3,4474b,fishbowl,3/15/23,36,17,AG,n,n,n,went well! Kid was becoming antsy after round three and accidentally tapped out of round 4 so round 4 was not complete. dad said one animal name during sampling phase of round 3. ,n,n,n,did not complete ,n,y,n,n
