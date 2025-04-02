@@ -25,7 +25,7 @@ participant_info <- read.csv(here(processed_path,"CoAct Participants Spreadsheet
     seed_part=seed
   )
 #read in demographic info
-demographics <- read.csv(here(processed_path,"General Demographics_March 19, 2023_18.18_processed.csv")) %>%
+demographics <- read.csv(here(processed_path,"General Demographics_October 28, 2023_12.19_processed.csv")) %>%
   mutate(subject_id=tolower(subject_id))
 
 
@@ -71,7 +71,7 @@ survey_data <- survey_data %>%
                        as.data.frame(row.names=paste0("Q",seq(0,39))) %>% 
                        rownames_to_column(var = "question")))
 
-survey_exclude_list <- c("test","Shashi",NA,"Test","Test2","Test-er","Ellatest","0","555","toyanc")
+survey_exclude_list <- c("test","Shashi",NA,"Test","Test2","Test-er","Ellatest","0","555","toyanc","Trestring","Trestr","Trest","Testr")
 
 survey_data <- survey_data %>%
   filter(!(participant_id %in% survey_exclude_list))
@@ -107,6 +107,20 @@ survey_data_final <- survey_data %>%
       TRUE ~ aoa
     )
   )
+
+survey_data_p101 <- survey_data_final %>%
+  filter(participant_id=="p101") %>%
+  group_by(participant_id,word) %>%
+  summarize(
+    N=n(),
+    mean_rating=mean(rating,na.rm=TRUE),
+    min_rating=min(rating,na.rm=TRUE),
+    disagreement=ifelse(mean_rating!=min_rating,"yes","no")
+  )
+
+#removing the second, shorter survey for p101 for now for simplicity
+survey_data_final <- survey_data_final %>%
+  filter(!(participant_id=="p101"&rt==89891))
 
 write_csv(survey_data_final,here(processed_path,"coact_v1_survey_processed.csv"))
 
