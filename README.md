@@ -1,5 +1,5 @@
 # co-act
 
-## Testing experiment
+Data, study materials, and analysis scripts for the "CoAct" experiment
 
-https://mzettersten.github.io/co-act/experiments/v1/index.html
+Zettersten, Martin, Guillu, Solana, & Lew-Williams, Casey (in prep). The dynamics of child-driven information-seeking and caregiver scaffolding during word learning.
